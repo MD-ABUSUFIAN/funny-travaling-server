@@ -13,21 +13,41 @@ app.use(cors());
 app.use(express.json());
 
 
-
-
 async function run(){
 try{
     await client.connect();
     const database = client.db("Traveling");
-    const serviceCollection = database.collection("Service");
+    const serviceCollection = database.collection("Service"); 
+    const ordersCollection = database.collection("Orders");
 
-    // const doc = {
-    //     item: "cox bazar",
-    //     price: "5500",
-    //   }
 
-    //   const result = await serviceCollection.insertOne(doc);
-    //   console.log(result);
+//    my orders post method part 
+
+        app.post('/myorders',async(req,res)=>{
+            console.log("hit the post api client site",req.body);
+            const result = await ordersCollection.insertOne(req.body)
+            res.send(result);
+            console.log(result);
+        });
+
+
+    // Manager Order Get method
+    app.get('/manageorders',async (req, res) => {
+
+        const result=await ordersCollection.find({}).toArray();
+        res.send(result)
+        console.log(result);
+
+    })
+
+
+
+
+
+
+
+
+
 
     app.post('/addnew',async(req,res)=>{
       
@@ -42,14 +62,9 @@ try{
         
         const result = await serviceCollection.find({}).toArray();
         res.send(result);
+        // console.log(result);
       
       });
-
-
-
-     
-
-
 
 }
 
@@ -59,14 +74,6 @@ finally{
 }
 }
  run().catch(console.dir);
-
-
-
-
-
- 
-
-
 
 
 app.get('/',(req,res)=>{
