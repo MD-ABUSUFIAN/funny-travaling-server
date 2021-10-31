@@ -52,14 +52,6 @@ try{
     });
 
 
-
-
-
-
-
-
-
-
     app.post('/addnew',async(req,res)=>{
       
         const result = await serviceCollection.insertOne(req.body);
@@ -81,7 +73,6 @@ try{
 
 finally{
     // client.close();
-
 }
 }
  run().catch(console.dir);
