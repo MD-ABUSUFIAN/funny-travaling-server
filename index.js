@@ -42,14 +42,28 @@ try{
 
     // Manage Order Delete Method
 
-    app.delete('/manageorders/:id',async(req,res)=>{
+    app.delete('/manageorders/:email',async(req,res)=>{
        const id=req.params.id;
-       const query={_id:(id)};
+       const query={email:(id)};
        console.log(query);
         const result=await ordersCollection.deleteOne(query);
         res.send("hit this delete method",result)
         
     });
+
+    // MyOrder Delete Method
+    app.delete('/myOrder/:id',async(req,res)=>{
+        const id=req.params.id;
+        console.log("hitted tis server",id);
+        const query={email:(id)};
+        
+         const result=await ordersCollection.deleteOne(query);
+         res.send("hit this delete method",result)
+         
+     });
+
+
+
 
 
     app.post('/addnew',async(req,res)=>{
