@@ -2,6 +2,7 @@ const express=require('express');
 require('dotenv').config();
 const { MongoClient } = require('mongodb');
 const cors=require('cors');
+const ObjectId=require('mongodb').ObjectId;
 const app = express();
 const port=process.env.PORT ||5000;
 
@@ -31,14 +32,24 @@ try{
         });
 
 
-    // Manager Order Get method
+    // Manage Order Get method
     app.get('/manageorders',async (req, res) => {
 
         const result=await ordersCollection.find({}).toArray();
         res.send(result)
         console.log(result);
-
     })
+
+    // Manage Order Delete Method
+
+    app.delete('/manageorders/:id',async(req,res)=>{
+       const id=req.params.id;
+       const query={_id:(id)};
+       console.log(query);
+        const result=await ordersCollection.deleteOne(query);
+        res.send("hit this delete method",result)
+        
+    });
 
 
 
