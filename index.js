@@ -42,24 +42,22 @@ try{
 
     // Manage Order Delete Method
 
-    app.delete('/manageorders/:email',async(req,res)=>{
+    app.delete('/manageOrders/:id',async(req,res)=>{
        const id=req.params.id;
-       const query={email:(id)};
+       const query={_id:(id)};
        console.log(query);
         const result=await ordersCollection.deleteOne(query);
-        res.send("hit this delete method",result)
+        res.send("hit this manage all order delete method",result)
         
     });
 
     // MyOrder Delete Method
     app.delete('/myOrder/:id',async(req,res)=>{
-        const id=req.params.id;
-        console.log("hitted tis server",id);
-        const query={email:(id)};
-        
+         const id=req.params.id;
+         const query={_id:(id)};
          const result=await ordersCollection.deleteOne(query);
-         res.send("hit this delete method",result)
-         
+         res.send(result)
+         console.log(result)
      });
 
 
@@ -67,12 +65,9 @@ try{
 
 
     app.post('/addnew',async(req,res)=>{
-      
         const result = await serviceCollection.insertOne(req.body);
         res.send(result);
         console.log("hit the post api client site",req.body);
-
-
     });
 
         app.get('/services',async(req,res)=>{
